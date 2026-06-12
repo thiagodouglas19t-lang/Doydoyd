@@ -11,7 +11,7 @@ function App() {
   const [actionCenterOpen, setActionCenterOpen] = useState(false)
 
   return (
-    <main className="desktop">
+    <main className="desktop nasaDesktop">
       <div className="portraitBlock">
         <Sparkles size={42} />
         <h1>Vire o aparelho</h1>
@@ -19,12 +19,19 @@ function App() {
       </div>
 
       <div className="desktopContent">
+        <div className="systemLabel">
+          <span>DOYDOYD OS</span>
+          <small>cloud workstation</small>
+        </div>
+
+        <div className="scanLine" />
+
         <div className="iconsGrid">
           {systemItems.map((item) => {
             const Icon = item.icon
             return (
               <button key={item.id} className="desktopIcon" onClick={() => setActiveItem(item)}>
-                <Icon size={18} />
+                <span className="iconPlate"><Icon size={20} /></span>
                 <span>{item.name}</span>
               </button>
             )
