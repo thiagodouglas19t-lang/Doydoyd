@@ -23,11 +23,9 @@ button {
   height: 100vh;
   position: relative;
   background:
-    radial-gradient(ellipse at 42% 42%, rgba(88, 166, 255, .95) 0 8%, transparent 30%),
-    radial-gradient(ellipse at 40% 32%, rgba(37, 99, 235, .9) 0 16%, transparent 42%),
-    radial-gradient(ellipse at 52% 55%, rgba(29, 78, 216, .85) 0 18%, transparent 46%),
-    radial-gradient(ellipse at 54% 45%, rgba(59, 130, 246, .7) 0 7%, transparent 26%),
-    linear-gradient(135deg, #061426 0%, #06162c 42%, #030712 100%);
+    linear-gradient(115deg, rgba(255,255,255,.22) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 38% 52%, rgba(59, 130, 246, .75), transparent 27%),
+    linear-gradient(135deg, #071326 0%, #0b2d57 45%, #03111f 100%);
 }
 
 .desktop::before {
@@ -35,26 +33,10 @@ button {
   position: absolute;
   inset: 0;
   background:
-    conic-gradient(from 220deg at 43% 44%, transparent 0deg, rgba(125, 211, 252, .45) 32deg, transparent 74deg, rgba(30, 64, 175, .45) 118deg, transparent 180deg, rgba(59, 130, 246, .38) 260deg, transparent 360deg),
-    radial-gradient(ellipse at 44% 43%, transparent 0 20%, rgba(6, 20, 50, .55) 52%, rgba(2, 6, 23, .9) 100%);
-  filter: saturate(1.28) contrast(1.05);
-  pointer-events: none;
-}
-
-.desktop::after {
-  content: '';
-  position: absolute;
-  width: 55vw;
-  height: 55vw;
-  left: 18vw;
-  top: 8vh;
-  background:
-    repeating-radial-gradient(ellipse at center, rgba(147, 197, 253, .42) 0 2px, transparent 3px 28px),
-    radial-gradient(ellipse at center, rgba(37, 99, 235, .9), transparent 62%);
-  border-radius: 42% 58% 54% 46%;
-  transform: rotate(-18deg) skew(8deg);
-  opacity: .8;
-  mix-blend-mode: screen;
+    linear-gradient(90deg, transparent 0 41%, rgba(83, 185, 255, .72) 41.2% 41.8%, transparent 42% 100%),
+    linear-gradient(0deg, transparent 0 48%, rgba(83, 185, 255, .55) 48.2% 48.9%, transparent 49% 100%),
+    radial-gradient(circle at 42% 49%, rgba(14, 165, 233, .42), transparent 34%),
+    linear-gradient(135deg, rgba(0,0,0,.08), rgba(0,0,0,.48));
   pointer-events: none;
 }
 
@@ -67,18 +49,18 @@ button {
 
 .iconsGrid {
   position: absolute;
-  top: 12px;
-  left: 10px;
+  top: 10px;
+  left: 8px;
   display: grid;
-  grid-template-columns: 64px;
-  gap: 8px;
+  grid-template-columns: 66px;
+  gap: 7px;
 }
 
 .desktopIcon {
-  width: 64px;
-  min-height: 54px;
+  width: 66px;
+  min-height: 56px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 2px;
   background: transparent;
   color: white;
   display: flex;
@@ -88,19 +70,19 @@ button {
   gap: 4px;
   cursor: pointer;
   padding: 5px 2px;
-  text-shadow: 0 1px 3px rgba(0,0,0,.9);
+  text-shadow: 0 1px 3px rgba(0,0,0,.95);
 }
 
 .desktopIcon span {
   font-size: 10px;
   line-height: 1.05;
-  max-width: 62px;
+  max-width: 64px;
   overflow-wrap: break-word;
 }
 
 .desktopIcon:hover {
-  border-color: rgba(255,255,255,.22);
-  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.26);
+  background: rgba(255,255,255,.14);
 }
 
 .window {
@@ -111,11 +93,10 @@ button {
   top: 48%;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(255,255,255,.18);
-  border-radius: 8px;
-  background: rgba(16, 24, 40, .82);
-  box-shadow: 0 24px 70px rgba(0,0,0,.52);
+  border-radius: 0;
+  background: rgba(20, 28, 40, .92);
+  box-shadow: 0 20px 65px rgba(0,0,0,.52);
   overflow: hidden;
-  backdrop-filter: blur(18px);
 }
 
 .windowHeader {
@@ -123,9 +104,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4px 0 10px;
-  background: rgba(255,255,255,.1);
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  padding: 0 0 0 10px;
+  background: rgba(32, 42, 56, .95);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 .windowTitle {
@@ -133,14 +114,14 @@ button {
   align-items: center;
   gap: 7px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .closeBtn {
-  width: 36px;
-  height: 28px;
+  width: 44px;
+  height: 32px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 0;
   color: white;
   background: transparent;
   font-size: 19px;
@@ -148,7 +129,7 @@ button {
 }
 
 .closeBtn:hover {
-  background: rgba(232, 17, 35, .9);
+  background: #e81123;
 }
 
 .windowBody {
@@ -189,10 +170,102 @@ button {
 
 .statusGrid span {
   border: 1px solid rgba(255,255,255,.12);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 8px;
   background: rgba(255,255,255,.07);
   color: rgba(255,255,255,.82);
+  font-size: 11px;
+}
+
+.startMenu {
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  width: 530px;
+  max-width: calc(100vw - 8px);
+  height: min(420px, calc(100vh - 48px));
+  background: rgba(22, 26, 32, .96);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 -14px 40px rgba(0,0,0,.48);
+  display: grid;
+  grid-template-columns: 44px 190px 1fr;
+  z-index: 5;
+}
+
+.startRail {
+  background: rgba(0,0,0,.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.startRail button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.startRail button:nth-child(2) {
+  margin-top: auto;
+}
+
+.startRail button:hover,
+.startAppsList button:hover,
+.startTiles button:hover {
+  background: rgba(255,255,255,.12);
+}
+
+.startAppsList {
+  padding: 12px 8px;
+  overflow: auto;
+}
+
+.startAppsList strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 8px 8px;
+}
+
+.startAppsList button {
+  width: 100%;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 8px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.startTiles {
+  padding: 34px 12px 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(78px, 1fr));
+  grid-auto-rows: 72px;
+  gap: 8px;
+  align-content: start;
+}
+
+.startTiles button {
+  border: 0;
+  background: #0f6cbd;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9px;
+  text-align: left;
   font-size: 11px;
 }
 
@@ -202,35 +275,35 @@ button {
   right: 0;
   bottom: 0;
   height: 40px;
-  background: rgba(13, 25, 43, .86);
-  backdrop-filter: blur(24px);
+  background: rgba(20, 20, 20, .96);
   display: flex;
   align-items: center;
-  justify-content: center;
   box-shadow: 0 -1px 0 rgba(255,255,255,.08);
+  z-index: 6;
 }
 
-.taskbarCenter {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.taskbarLeft {
   display: flex;
   align-items: center;
-  gap: 4px;
+  height: 100%;
 }
 
 .startButton,
 .taskIcon,
 .systemTray button {
-  width: 31px;
-  height: 31px;
+  width: 40px;
+  height: 40px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 0;
   color: white;
   background: transparent;
   cursor: pointer;
   display: grid;
   place-items: center;
+}
+
+.startButton {
+  font-size: 19px;
 }
 
 .startButton:hover,
@@ -239,13 +312,25 @@ button {
   background: rgba(255,255,255,.12);
 }
 
+.win10Search {
+  height: 40px;
+  width: 180px;
+  background: rgba(255,255,255,.92);
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  font-size: 12px;
+}
+
 .systemTray {
-  position: absolute;
-  right: 8px;
+  margin-left: auto;
   height: 100%;
   display: flex;
   align-items: center;
   gap: 5px;
+  padding-right: 8px;
   color: rgba(255,255,255,.86);
 }
 
@@ -299,15 +384,15 @@ button {
 
 @media (max-width: 760px) and (orientation: landscape) {
   .iconsGrid {
-    top: 8px;
-    left: 6px;
-    grid-template-columns: 58px;
-    gap: 5px;
+    top: 7px;
+    left: 5px;
+    grid-template-columns: 56px;
+    gap: 4px;
   }
 
   .desktopIcon {
-    width: 58px;
-    min-height: 49px;
+    width: 56px;
+    min-height: 48px;
   }
 
   .desktopIcon span {
@@ -315,8 +400,8 @@ button {
   }
 
   .window {
-    width: calc(100vw - 145px);
-    height: calc(100vh - 62px);
+    width: calc(100vw - 135px);
+    height: calc(100vh - 58px);
     left: calc(50% + 34px);
   }
 
@@ -327,8 +412,26 @@ button {
   .startButton,
   .taskIcon,
   .systemTray button {
-    width: 27px;
-    height: 27px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .win10Search {
+    height: 34px;
+    width: 116px;
+    font-size: 11px;
+  }
+
+  .startMenu {
+    bottom: 34px;
+    height: calc(100vh - 42px);
+    width: 430px;
+    grid-template-columns: 38px 150px 1fr;
+  }
+
+  .startTiles {
+    grid-auto-rows: 58px;
+    padding-top: 26px;
   }
 
   .systemTray {
