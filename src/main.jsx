@@ -1,67 +1,59 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Battery, Folder, HardDrive, Maximize2, Monitor, Power, Settings, Shield, Volume2, Wifi } from 'lucide-react'
+import { Bot, FileText, Maximize2, MessageCircle, Plus, Save, Sparkles } from 'lucide-react'
 import './styles.css'
 
 const apps = [
-  ['pc', 'Este PC', Monitor, 'Simulador de computador leve rodando direto no navegador.', ['Sistema online', 'Modo navegador', 'Tela adaptada', 'Baixo consumo']],
-  ['files', 'Arquivos', Folder, 'Pastas visuais para organizar o PC.', ['Desktop', 'Downloads', 'Projetos', 'Favoritos']],
-  ['settings', 'Configurações', Settings, 'Ajustes rápidos do simulador.', ['Tela cheia', 'Modo escuro', 'Layout PC', 'Leve no tablet']],
-  ['security', 'Segurança', Shield, 'Status de proteção do sistema.', ['Sem instalação', 'Sem permissão extra', 'Controle local', 'Navegação segura']],
-  ['storage', 'Disco', HardDrive, 'Resumo visual do armazenamento.', ['Sistema: 2 GB', 'Livre: 28 GB', 'Cache limpo', 'Nuvem opcional']]
-].map(([id, name, icon, text, status]) => ({ id, name, icon, text, status }))
+  { id: 'editor', name: 'Editor IA', icon: FileText },
+  { id: 'chat', name: 'Mini Chat', icon: MessageCircle },
+  { id: 'projects', name: 'Projetos', icon: Sparkles }
+]
 
-function IconButton({ app, mode, onClick }) {
-  const Icon = app.icon
-  if (mode === 'desktop') return <button className="desktopIcon" onClick={onClick}><span className="iconPlate"><Icon size={22} /></span><span>{app.name}</span></button>
-  if (mode === 'menu') return <button onClick={onClick}><Icon size={16} />{app.name}</button>
-  return <button className="taskIcon" onClick={onClick}><Icon size={17} /></button>
+function askLocalAI(text, mode) {
+  if (!text.trim()) return 'Escreve alguma coisa primeiro.'
+  if (mode === 'resumir') return `Resumo rápido:\n\n${text.split(/[.!?]/).filter(Boolean).slice(0, 2).join('. ')}.`
+  if (mode === 'roteiro') return `Roteiro base:\n\n1. Gancho forte\n2. Explicação direta\n3. Exemplo visual\n4. Fechamento com aprendizado\n\nTexto base:\n${text}`
+  return `Versão melhorada:\n\n${text.trim()}\n\nAjuste: deixe mais claro, direto e com começo forte.`
 }
 
-function Window({ app, maximized, toggleMaximize, close }) {
-  const Icon = app.icon
-  return (
-    <section className={`window ${maximized ? 'maximized' : ''}`}>
-      <header className="windowHeader">
-        <div className="windowTitle"><Icon size={16} />{app.name}</div>
-        <div className="windowControls"><button onClick={toggleMaximize}>{maximized ? '❐' : '□'}</button><button className="closeBtn" onClick={close}>×</button></div>
-      </header>
-      <div className="windowBody systemPanel">
-        <Icon size={50} />
-        <h2>{app.name}</h2>
-        <p>{app.text}</p>
-        <div className="statusGrid">{app.status.map((item) => <span key={item}>{item}</span>)}</div>
-      </div>
-    </section>
-  )
+function EditorAI() {
+  const [text, setText] = useState(() => localStorage.getItem('doydoyd-editor') || '')
+  const [result, setResult] = useState('')
+  useEffect(() => localStorage.setItem('doydoyd-editor', text), [text])
+  return <div className="appView editorView"><textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Escreve roteiro, ideia, prompt ou anotação aqui..." /><aside><h2>Editor IA</h2><p>Modo leve: já organiza texto localmente. Depois conectamos IA real pela API.</p><button onClick={() => setResult(askLocalAI(text, 'melhorar'))}><Sparkles size={15}/> Melhorar</button><button onClick={() => setResult(askLocalAI(text, 'resumir'))}><Save size={15}/> Resumir</button><button onClick={() => setResult(askLocalAI(text, 'roteiro'))}><FileText size={15}/> Criar roteiro</button><pre>{result || 'O resultado aparece aqui.'}</pre></aside></div>
+}
+
+function MiniChat() {
+  const [input, setInput] = useState('')
+  const [messages, setMessages] = useState(() => JSON.parse(localStorage.getItem('doydoyd-chat') || '[]'))
+  useEffect(() => localStorage.setItem('doydoyd-chat', JSON.stringify(messages)), [messages])
+  function send() {
+    if (!input.trim()) return
+    const reply = `Entendi. Ideia salva: ${input.trim()}\n\nQuando a IA real entrar, eu respondo melhor aqui.`
+    setMessages([...messages, { from: 'Você', text: input }, { from: 'Doydoyd', text: reply }])
+    setInput('')
+  }
+  return <div className="appView chatView"><div className="chatLog">{messages.length ? messages.map((m, i) => <div key={i} className={m.from === 'Você' ? 'msg user' : 'msg'}><b>{m.from}</b><span>{m.text}</span></div>) : <p className="empty">Mini chat básico pronto.</p>}</div><div className="chatBar"><input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()} placeholder="Fala com o mini chat..." /><button onClick={send}>Enviar</button></div></div>
+}
+
+function Projects() {
+  const [items, setItems] = useState(() => JSON.parse(localStorage.getItem('doydoyd-projects') || '["Short sobre espaço", "Configurar tablet", "Criar app leve"]'))
+  useEffect(() => localStorage.setItem('doydoyd-projects', JSON.stringify(items)), [items])
+  return <div className="appView projectView"><h2>Projetos</h2><button onClick={() => setItems([...items, 'Novo projeto'])}><Plus size={15}/> Novo</button>{items.map((item, i) => <input key={i} value={item} onChange={(e) => setItems(items.map((v, x) => x === i ? e.target.value : v))} />)}</div>
+}
+
+function AppContent({ id }) {
+  if (id === 'chat') return <MiniChat />
+  if (id === 'projects') return <Projects />
+  return <EditorAI />
 }
 
 function App() {
-  const [activeId, setActiveId] = useState('pc')
-  const [menu, setMenu] = useState(false)
-  const [center, setCenter] = useState(false)
-  const [maximized, setMaximized] = useState(false)
-  const activeApp = useMemo(() => apps.find((app) => app.id === activeId), [activeId])
-  const open = (id) => { setActiveId(id); setMenu(false) }
+  const [active, setActive] = useState('editor')
+  const current = apps.find((app) => app.id === active)
+  const Icon = current.icon
   const fullscreen = () => document.documentElement.requestFullscreen?.().catch(() => {})
-
-  return (
-    <main className="desktop">
-      <div className="desktopContent">
-        <button className="fullscreenButton" onClick={fullscreen}><Maximize2 size={15} /> Tela cheia</button>
-        <div className="systemLabel"><span>DOYDOYD PC</span><small>mini board simulator</small></div>
-        <div className="boardBadge">mini placa • leve • estável</div>
-        <div className="iconsGrid">{apps.map((app) => <IconButton key={app.id} app={app} mode="desktop" onClick={() => open(app.id)} />)}</div>
-        {activeApp && <Window app={activeApp} maximized={maximized} toggleMaximize={() => setMaximized(!maximized)} close={() => setActiveId(null)} />}
-        {menu && <section className="startMenu simpleMenu"><strong>Apps do sistema</strong>{apps.map((app) => <IconButton key={app.id} app={app} mode="menu" onClick={() => open(app.id)} />)}</section>}
-        {center && <aside className="actionCenter"><header><strong>Central</strong><Wifi size={15} /></header><button className="focusAction" onClick={fullscreen}>Entrar em tela cheia</button><div className="notificationCard"><b>Doydoyd PC</b><span>Simulador limpo, leve e focado em parecer um PC no tablet.</span></div></aside>}
-        <footer className="taskbar">
-          <div className="taskbarLeft"><button className="startButton" onClick={() => setMenu(!menu)}>⊞</button>{apps.slice(0, 4).map((app) => <IconButton key={app.id} app={app} mode="task" onClick={() => open(app.id)} />)}</div>
-          <div className="systemTray"><button onClick={fullscreen}><Monitor size={13} /></button><Wifi size={13} /><Volume2 size={13} /><Battery size={14} /><button onClick={() => setCenter(!center)}><Power size={13} /></button></div>
-        </footer>
-      </div>
-    </main>
-  )
+  return <main className="hub"><header className="topbar"><strong>Doydoyd Hub</strong><button onClick={fullscreen}><Maximize2 size={15}/> Tela cheia</button></header><aside className="dock">{apps.map((app) => { const I = app.icon; return <button key={app.id} className={active === app.id ? 'active' : ''} onClick={() => setActive(app.id)}><I size={20}/><span>{app.name}</span></button> })}</aside><section className="window"><header className="windowHeader"><div className="windowTitle"><Icon size={16}/>{current.name}</div><Bot size={16}/></header><div className="windowBody"><AppContent id={active}/></div></section></main>
 }
 
 createRoot(document.getElementById('root')).render(<App />)
