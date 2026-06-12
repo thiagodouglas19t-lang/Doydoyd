@@ -1,0 +1,7 @@
+.nasaDesktop {
+  background-image:
+    radial-gradient(circle at 68% 42%, rgba(255,255,255,.16), transparent 2%),
+    radial-gradient(circle at 58% 35%, rgba(148, 163, 184, .14), transparent 13%),
+    radial-gradient(circle at 28% 58%, rgba(59, 130, 246, .18), transparent 24%),
+    linear-gradient(115deg, #03050b 0%, #0a1020 43%, #02030a 100%);
+}
