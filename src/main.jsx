@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Battery, Folder, HardDrive, Monitor, Power, Settings, Shield, Volume2, Wifi } from 'lucide-react'
+import { Battery, Folder, HardDrive, Maximize2, Monitor, Power, Settings, Shield, Volume2, Wifi } from 'lucide-react'
 import './styles.css'
 
 const apps = [
@@ -48,6 +48,7 @@ function App() {
   return (
     <main className="desktop">
       <div className="desktopContent">
+        <button className="fullscreenButton" onClick={fullscreen}><Maximize2 size={15} /> Tela cheia</button>
         <div className="systemLabel"><span>DOYDOYD PC</span><small>mini board simulator</small></div>
         <div className="boardBadge">mini placa • leve • estável</div>
         <div className="iconsGrid">{apps.map((app) => <IconButton key={app.id} app={app} mode="desktop" onClick={() => open(app.id)} />)}</div>
