@@ -1,4 +1,4 @@
-import { ExternalLink, Search, Star } from 'lucide-react'
+import { ExternalLink, Plus, Search, Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { supabase } from '../system/supabase.js'
 
@@ -42,24 +42,34 @@ export function BrowserApp() {
     saveHistory(url, title)
   }
 
+  async function addBookmark() {
+    const url = normalizeUrl(query)
+    if (!url) return
+    const title = query.trim()
+    const next = { title, url, position: bookmarks.length + 1 }
+    setBookmarks((items) => [...items, next])
+    await supabase.from('browser_bookmarks').insert({ owner_key: 'local', ...next })
+  }
+
   function search(event) {
     event.preventDefault()
     const url = normalizeUrl(query)
-    if (url) openUrl(url, query)
+    if (url) openUrl(url, query || url)
   }
 
   return (
     <section className="browserApp">
-      <div className="browserHero">
-        <strong>Doydoyd Browser</strong>
-        <span>Use tudo pelo navegador: YouTube, Discord Web, editor online e pesquisa.</span>
-      </div>
-
       <form className="browserSearch" onSubmit={search}>
         <Search size={16} />
         <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Pesquisar ou digitar site" autoFocus />
         <button type="submit">Abrir</button>
+        <button type="button" onClick={addBookmark} aria-label="Salvar favorito"><Plus size={15} /></button>
       </form>
+
+      <div className="browserHero">
+        <strong>Doydoyd Browser</strong>
+        <span>{loading ? 'Carregando nuvem...' : 'Teu navegador central: abre sites reais e salva favoritos.'}</span>
+      </div>
 
       <div className="bookmarkGrid">
         {bookmarks.map((bookmark) => (
@@ -70,8 +80,6 @@ export function BrowserApp() {
           </button>
         ))}
       </div>
-
-      <p className="browserHint">{loading ? 'Carregando favoritos da nuvem...' : 'Os sites abrem em nova guia para funcionar sem bloqueio.'}</p>
     </section>
   )
 }
