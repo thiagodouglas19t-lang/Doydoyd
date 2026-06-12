@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Chrome, Folder, NotebookPen, Settings, Trash2, Youtube, MessageCircle, Github, Sparkles } from 'lucide-react'
+import { Chrome, Folder, NotebookPen, Settings, Trash2, Youtube, MessageCircle, Github, Sparkles, Film, Plus, Play, Scissors, Download } from 'lucide-react'
 import './styles.css'
 
 const apps = [
   { id: 'browser', name: 'Navegador', icon: Chrome, url: 'https://www.google.com' },
+  { id: 'studio', name: 'Editor', icon: Film },
   { id: 'youtube', name: 'YouTube', icon: Youtube, url: 'https://www.youtube.com' },
   { id: 'discord', name: 'Discord', icon: MessageCircle, url: 'https://discord.com/app' },
   { id: 'github', name: 'GitHub', icon: Github, url: 'https://github.com' },
@@ -24,6 +25,48 @@ function Clock() {
   )
 }
 
+function VideoEditor() {
+  const [clips, setClips] = useState([
+    { id: 1, name: 'Cena 1', time: '0:00 - 0:05', type: 'Vídeo' },
+    { id: 2, name: 'Cena 2', time: '0:05 - 0:12', type: 'Imagem' }
+  ])
+
+  function addClip() {
+    const next = clips.length + 1
+    setClips([...clips, { id: Date.now(), name: `Cena ${next}`, time: 'novo corte', type: 'Mídia' }])
+  }
+
+  return (
+    <div className="editorApp">
+      <aside className="editorSidebar">
+        <h2>Doy Studio</h2>
+        <button onClick={addClip}><Plus size={16} /> Adicionar cena</button>
+        <button><Scissors size={16} /> Cortar</button>
+        <button><Play size={16} /> Prévia</button>
+        <button><Download size={16} /> Exportar depois</button>
+      </aside>
+
+      <section className="previewArea">
+        <div className="previewScreen">
+          <Film size={44} />
+          <strong>Prévia do vídeo</strong>
+          <span>Editor leve para organizar cenas, cortes, roteiro e assets.</span>
+        </div>
+      </section>
+
+      <section className="timeline">
+        {clips.map((clip) => (
+          <div className="clip" key={clip.id}>
+            <strong>{clip.name}</strong>
+            <span>{clip.type}</span>
+            <small>{clip.time}</small>
+          </div>
+        ))}
+      </section>
+    </div>
+  )
+}
+
 function Window({ app, onClose }) {
   const Icon = app.icon
 
@@ -35,7 +78,9 @@ function Window({ app, onClose }) {
       </header>
 
       <div className="windowBody">
-        {app.url ? (
+        {app.id === 'studio' ? (
+          <VideoEditor />
+        ) : app.url ? (
           <div className="launcherCard">
             <Icon size={48} />
             <h2>{app.name}</h2>
@@ -96,7 +141,7 @@ function App() {
           <button className="startButton">⊞</button>
           <div className="taskSearch">Pesquisar no Doydoyd OS</div>
           <div className="taskApps">
-            {apps.slice(0, 4).map((app) => {
+            {apps.slice(0, 5).map((app) => {
               const Icon = app.icon
               return <button key={app.id} onClick={() => setActiveApp(app)}><Icon size={19} /></button>
             })}
