@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Sparkles } from 'lucide-react'
+import { Expand, Sparkles } from 'lucide-react'
 import { systemItems } from './data/systemItems.js'
 import { Taskbar } from './components/Taskbar.jsx'
 import { Window } from './components/Window.jsx'
 import './styles.css'
+
+function enterFullscreen() {
+  const root = document.documentElement
+  if (root.requestFullscreen) root.requestFullscreen().catch(() => {})
+}
 
 function App() {
   const [activeItem, setActiveItem] = useState(systemItems[0])
@@ -22,6 +27,10 @@ function App() {
           <span>Doydoyd OS</span>
           <small>Cloud PC base</small>
         </div>
+
+        <button className="fullscreenButton" onClick={enterFullscreen}>
+          <Expand size={15} /> Tela cheia
+        </button>
 
         <div className="iconsGrid">
           {systemItems.map((item) => {
