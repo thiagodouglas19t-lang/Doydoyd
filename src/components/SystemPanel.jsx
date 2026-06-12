@@ -1,4 +1,4 @@
-import { panels } from '../data/panels.js'
+import { panels } from '../system/panels.js'
 
 export function SystemPanel({ item }) {
   const panel = panels[item.id] || panels.fallback
