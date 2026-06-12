@@ -1,11 +1,17 @@
-import { Monitor, Settings, Trash2, Cloud } from 'lucide-react'
+import { Cloud, FolderOpen, Monitor, Settings, Trash2 } from 'lucide-react'
 
 export const systemItems = [
   {
     id: 'home',
-    name: 'Meu PC',
+    name: 'Este PC',
     icon: Monitor,
     description: 'Resumo do sistema, status e atalhos principais.'
+  },
+  {
+    id: 'files',
+    name: 'Arquivos',
+    icon: FolderOpen,
+    description: 'Gerenciador de arquivos da nuvem do Doydoyd OS.'
   },
   {
     id: 'cloud',
