@@ -1,0 +1,324 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+  background: #080b14;
+  color: white;
+}
+
+button,
+a,
+textarea {
+  font: inherit;
+}
+
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background:
+    radial-gradient(circle at top left, rgba(71, 126, 255, 0.55), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(190, 60, 255, 0.35), transparent 30%),
+    linear-gradient(135deg, #07101f 0%, #111827 45%, #050816 100%);
+}
+
+.desktop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,.08), transparent 42%, rgba(255,255,255,.05));
+  pointer-events: none;
+}
+
+.desktopContent {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+.brand {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.45);
+}
+
+.brand span {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.brand small {
+  color: rgba(255,255,255,.72);
+}
+
+.iconsGrid {
+  position: absolute;
+  top: 78px;
+  left: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, 82px);
+  gap: 12px;
+}
+
+.desktopIcon {
+  width: 82px;
+  height: 76px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255,255,255,.08);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+}
+
+.desktopIcon span {
+  font-size: 12px;
+}
+
+.desktopIcon:hover,
+.taskbar button:hover,
+.startButton:hover {
+  background: rgba(255,255,255,.18);
+}
+
+.window {
+  position: absolute;
+  width: min(720px, calc(100vw - 250px));
+  height: min(420px, calc(100vh - 95px));
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 18px;
+  background: rgba(15, 23, 42, .78);
+  box-shadow: 0 26px 80px rgba(0,0,0,.45);
+  overflow: hidden;
+  backdrop-filter: blur(22px);
+}
+
+.windowHeader {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 15px;
+  background: rgba(255,255,255,.09);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.windowTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.closeBtn {
+  width: 34px;
+  height: 28px;
+  border: 0;
+  border-radius: 9px;
+  color: white;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  background: rgba(239, 68, 68, .75);
+}
+
+.windowBody {
+  height: calc(100% - 42px);
+  padding: 18px;
+  overflow: auto;
+}
+
+.launcherCard,
+.panelText {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.launcherCard h2,
+.panelText h2 {
+  margin: 0;
+}
+
+.launcherCard p,
+.panelText p {
+  max-width: 420px;
+  color: rgba(255,255,255,.72);
+  margin: 0;
+}
+
+.launcherCard a,
+.panelText button {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  color: white;
+  background: rgba(59, 130, 246, .95);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.notes {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  outline: none;
+  padding: 16px;
+  background: rgba(255,255,255,.08);
+  color: white;
+}
+
+.notes::placeholder {
+  color: rgba(255,255,255,.55);
+}
+
+.taskbar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  height: 52px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  background: rgba(15, 23, 42, .72);
+  backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+}
+
+.startButton,
+.taskbar button {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  background: rgba(255,255,255,.09);
+  cursor: pointer;
+}
+
+.startButton {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.taskSearch {
+  width: 210px;
+  height: 38px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  color: rgba(255,255,255,.62);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 13px;
+}
+
+.taskApps {
+  display: flex;
+  gap: 7px;
+  flex: 1;
+}
+
+.clock {
+  min-width: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 12px;
+  padding-right: 7px;
+}
+
+.clock span {
+  color: rgba(255,255,255,.65);
+}
+
+.portraitBlock {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  .desktopContent {
+    display: none;
+  }
+
+  .portraitBlock {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    padding: 28px;
+    background: #080b14;
+  }
+
+  .portraitBlock h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  .portraitBlock p {
+    margin: 0;
+    color: rgba(255,255,255,.72);
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 760px) and (orientation: landscape) {
+  .iconsGrid {
+    grid-template-columns: repeat(2, 74px);
+    gap: 8px;
+  }
+
+  .desktopIcon {
+    width: 74px;
+    height: 66px;
+  }
+
+  .window {
+    width: calc(100vw - 190px);
+    height: calc(100vh - 86px);
+    left: calc(50% + 40px);
+  }
+
+  .taskSearch {
+    display: none;
+  }
+}
