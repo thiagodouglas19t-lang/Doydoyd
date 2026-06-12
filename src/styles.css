@@ -203,6 +203,104 @@ textarea {
   color: rgba(255,255,255,.55);
 }
 
+.editorApp {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 1fr 106px;
+  gap: 12px;
+}
+
+.editorSidebar {
+  grid-row: 1 / 3;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editorSidebar h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.editorSidebar button {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.09);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.editorSidebar button:hover {
+  background: rgba(59, 130, 246, .55);
+}
+
+.previewArea {
+  min-height: 0;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(0,0,0,.18);
+}
+
+.previewScreen {
+  height: 100%;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at center, rgba(59,130,246,.18), transparent 42%),
+    #050816;
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  color: rgba(255,255,255,.9);
+}
+
+.previewScreen span {
+  max-width: 360px;
+  color: rgba(255,255,255,.58);
+  font-size: 12px;
+}
+
+.timeline {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(0,0,0,.18);
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.clip {
+  min-width: 130px;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(59,130,246,.24);
+  border: 1px solid rgba(147,197,253,.22);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.clip span,
+.clip small {
+  color: rgba(255,255,255,.65);
+}
+
 .taskbar {
   position: absolute;
   left: 12px;
@@ -320,5 +418,20 @@ textarea {
 
   .taskSearch {
     display: none;
+  }
+
+  .editorApp {
+    grid-template-columns: 124px 1fr;
+    grid-template-rows: 1fr 86px;
+    gap: 8px;
+  }
+
+  .editorSidebar {
+    padding: 8px;
+  }
+
+  .editorSidebar button {
+    padding: 8px;
+    font-size: 11px;
   }
 }
