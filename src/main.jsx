@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Bell, Sparkles } from 'lucide-react'
-import { systemItems } from './data/systemItems.js'
+import { APPS, SYSTEM, quickActions } from './system/core.js'
 import { Taskbar } from './components/Taskbar.jsx'
 import { Window } from './components/Window.jsx'
 import './styles.css'
@@ -16,19 +16,19 @@ function App() {
       <div className="portraitBlock">
         <Sparkles size={42} />
         <h1>Vire o aparelho</h1>
-        <p>O Doydoyd OS foi feito para funcionar sempre deitado, igual um PC.</p>
+        <p>{SYSTEM.orientationMessage}</p>
       </div>
 
       <div className="desktopContent">
         <div className="systemLabel">
-          <span>DOYDOYD OS</span>
-          <small>cloud workstation</small>
+          <span>{SYSTEM.name}</span>
+          <small>{SYSTEM.tagline}</small>
         </div>
 
         <div className="scanLine" />
 
         <div className="iconsGrid">
-          {systemItems.map((item) => {
+          {APPS.map((item) => {
             const Icon = item.icon
             return (
               <button key={item.id} className="desktopIcon" onClick={() => setActiveItem(item)}>
@@ -48,19 +48,16 @@ function App() {
               <Bell size={15} />
             </header>
             <div className="notificationCard">
-              <b>Doydoyd OS</b>
+              <b>{SYSTEM.name}</b>
               <span>Sistema pronto para virar seu PC virtual na nuvem.</span>
             </div>
             <div className="quickActions">
-              <button>Modo tablet</button>
-              <button>Tela cheia</button>
-              <button>Modo leve</button>
-              <button>Nuvem</button>
+              {quickActions.map((action) => <button key={action}>{action}</button>)}
             </div>
           </aside>
         )}
 
-        <Taskbar items={systemItems} onOpen={setActiveItem} onToggleActions={() => setActionCenterOpen(!actionCenterOpen)} />
+        <Taskbar items={APPS} onOpen={setActiveItem} onToggleActions={() => setActionCenterOpen(!actionCenterOpen)} />
       </div>
     </main>
   )
