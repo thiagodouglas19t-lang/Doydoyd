@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Chrome, Folder, NotebookPen, Settings, Trash2, Youtube, MessageCircle, Github, Sparkles, Film, Plus, Play, Scissors, Download } from 'lucide-react'
+import { Globe, Folder, NotebookPen, Settings, Trash2, PlaySquare, MessageCircle, Code2, Sparkles, Film, Plus, Play, Scissors, Download } from 'lucide-react'
 import './styles.css'
 
 const apps = [
-  { id: 'browser', name: 'Navegador', icon: Chrome, url: 'https://www.google.com' },
+  { id: 'browser', name: 'Navegador', icon: Globe, url: 'https://www.google.com' },
   { id: 'studio', name: 'Editor', icon: Film },
-  { id: 'youtube', name: 'YouTube', icon: Youtube, url: 'https://www.youtube.com' },
+  { id: 'youtube', name: 'YouTube', icon: PlaySquare, url: 'https://www.youtube.com' },
   { id: 'discord', name: 'Discord', icon: MessageCircle, url: 'https://discord.com/app' },
-  { id: 'github', name: 'GitHub', icon: Github, url: 'https://github.com' },
+  { id: 'github', name: 'GitHub', icon: Code2, url: 'https://github.com' },
   { id: 'notes', name: 'Notas', icon: NotebookPen },
   { id: 'files', name: 'Arquivos', icon: Folder },
   { id: 'cleaner', name: 'Limpeza', icon: Trash2 },
