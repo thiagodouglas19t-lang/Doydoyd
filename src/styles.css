@@ -1,508 +1,138 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  font-family: Segoe UI, Arial, sans-serif;
-  background: #020617;
-  color: white;
+html, body, #root {
+  width: 100%; height: 100%; margin: 0; overflow: hidden;
+  font-family: Segoe UI, Arial, sans-serif; background: #03050b; color: white;
 }
-
-button {
-  font: inherit;
-}
+button { font: inherit; }
 
 .desktop {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+  width: 100vw; height: 100vh; position: relative; overflow: hidden;
   background:
-    linear-gradient(115deg, rgba(255,255,255,.22) 0 1px, transparent 1px 100%),
-    radial-gradient(circle at 38% 52%, rgba(59, 130, 246, .75), transparent 27%),
-    linear-gradient(135deg, #071326 0%, #0b2d57 45%, #03111f 100%);
+    radial-gradient(circle at 72% 42%, rgba(185, 198, 255, .18), transparent 18%),
+    radial-gradient(circle at 36% 45%, rgba(59, 130, 246, .18), transparent 26%),
+    linear-gradient(110deg, #05070d 0%, #0a0d18 40%, #020308 100%);
 }
 
-.desktop::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+.nasaDesktop::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 0 41%, rgba(83, 185, 255, .72) 41.2% 41.8%, transparent 42% 100%),
-    linear-gradient(0deg, transparent 0 48%, rgba(83, 185, 255, .55) 48.2% 48.9%, transparent 49% 100%),
-    radial-gradient(circle at 42% 49%, rgba(14, 165, 233, .42), transparent 34%),
-    linear-gradient(135deg, rgba(0,0,0,.08), rgba(0,0,0,.48));
-  pointer-events: none;
+    linear-gradient(90deg, transparent 0 45%, rgba(148, 163, 184, .12) 45.1% 45.3%, transparent 45.4%),
+    linear-gradient(0deg, transparent 0 64%, rgba(148, 163, 184, .10) 64.1% 64.3%, transparent 64.4%),
+    radial-gradient(circle at 68% 36%, rgba(255,255,255,.14), transparent 1.5%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px);
+  mix-blend-mode: screen;
 }
 
-.desktopContent {
-  display: block;
-  height: 100%;
-  position: relative;
-  z-index: 1;
+.nasaDesktop::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,.72) 0 37%, transparent 48%), linear-gradient(0deg, rgba(0,0,0,.2), transparent 45%);
+}
+
+.desktopContent { display: block; height: 100%; position: relative; z-index: 1; }
+
+.systemLabel {
+  position: absolute; top: 12px; right: 14px; text-align: right; letter-spacing: .12em;
+  text-shadow: 0 0 14px rgba(125, 211, 252, .32); opacity: .82;
+}
+.systemLabel span { display: block; font-size: 11px; font-weight: 800; }
+.systemLabel small { display: block; font-size: 8px; color: rgba(255,255,255,.56); }
+
+.scanLine {
+  position: absolute; left: 0; right: 0; top: 58%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, .42), transparent);
+  opacity: .55;
 }
 
 .iconsGrid {
-  position: absolute;
-  top: 10px;
-  left: 8px;
-  display: grid;
-  grid-template-columns: 66px;
-  gap: 7px;
+  position: absolute; top: 18px; left: 12px; display: grid; grid-template-columns: 72px; gap: 12px;
 }
-
 .desktopIcon {
-  width: 66px;
-  min-height: 56px;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  background: transparent;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-  cursor: pointer;
-  padding: 5px 2px;
+  width: 72px; min-height: 70px; border: 1px solid transparent; border-radius: 10px;
+  background: rgba(8, 12, 22, .18); color: white; display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start; gap: 5px; cursor: pointer; padding: 6px 2px;
   text-shadow: 0 1px 3px rgba(0,0,0,.95);
 }
-
-.desktopIcon span {
-  font-size: 10px;
-  line-height: 1.05;
-  max-width: 64px;
-  overflow-wrap: break-word;
+.iconPlate {
+  width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px;
+  background: rgba(15, 23, 42, .72); border: 1px solid rgba(148, 163, 184, .22);
+  box-shadow: inset 0 0 18px rgba(125, 211, 252, .08), 0 8px 18px rgba(0,0,0,.35);
 }
-
-.desktopIcon:hover {
-  border-color: rgba(255,255,255,.26);
-  background: rgba(255,255,255,.14);
-}
+.desktopIcon span:last-child { font-size: 10px; line-height: 1.05; max-width: 68px; overflow-wrap: break-word; }
+.desktopIcon:hover { border-color: rgba(125,211,252,.34); background: rgba(125,211,252,.10); }
 
 .window {
-  position: absolute;
-  width: min(640px, calc(100vw - 170px));
-  height: min(360px, calc(100vh - 72px));
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 0;
-  background: rgba(20, 28, 40, .92);
-  box-shadow: 0 20px 65px rgba(0,0,0,.52);
-  overflow: hidden;
+  position: absolute; width: min(660px, calc(100vw - 170px)); height: min(370px, calc(100vh - 78px));
+  left: 50%; top: 48%; transform: translate(-50%, -50%); border: 1px solid rgba(125,211,252,.22);
+  border-radius: 14px; background: rgba(5, 10, 20, .86); box-shadow: 0 22px 70px rgba(0,0,0,.62), 0 0 34px rgba(14,165,233,.12); overflow: hidden; backdrop-filter: blur(18px);
 }
+.windowHeader { height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0 0 0 11px; background: rgba(15,23,42,.86); border-bottom: 1px solid rgba(125,211,252,.14); }
+.windowTitle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.closeBtn { width: 44px; height: 34px; border: 0; border-radius: 0; color: white; background: transparent; font-size: 19px; cursor: pointer; }
+.closeBtn:hover { background: #e81123; }
+.windowBody { height: calc(100% - 34px); padding: 14px; overflow: auto; }
 
-.windowHeader {
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0 0 10px;
-  background: rgba(32, 42, 56, .95);
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
+.systemPanel { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; }
+.systemPanel h2 { margin: 0; font-size: 20px; }
+.systemPanel p { max-width: 430px; color: rgba(255,255,255,.72); margin: 0; font-size: 13px; }
+.statusGrid { display: grid; grid-template-columns: repeat(2, minmax(110px, 1fr)); gap: 7px; margin-top: 8px; width: min(420px, 100%); }
+.statusGrid span { border: 1px solid rgba(125,211,252,.13); border-radius: 8px; padding: 8px; background: rgba(125,211,252,.06); color: rgba(255,255,255,.82); font-size: 11px; }
 
-.windowTitle {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 400;
+.startMenu, .actionCenter {
+  background: rgba(6, 10, 20, .94); border: 1px solid rgba(125,211,252,.18); box-shadow: 0 -14px 45px rgba(0,0,0,.55), 0 0 28px rgba(14,165,233,.08); backdrop-filter: blur(18px); z-index: 5;
 }
+.startMenu { position: absolute; left: 10px; bottom: 56px; width: 510px; max-width: calc(100vw - 20px); height: min(395px, calc(100vh - 70px)); display: grid; grid-template-columns: 44px 180px 1fr; border-radius: 18px; overflow: hidden; }
+.startRail { background: rgba(255,255,255,.035); display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0; }
+.startRail button { width: 34px; height: 34px; border: 0; background: transparent; color: white; display: grid; place-items: center; border-radius: 10px; }
+.startRail button:nth-child(2) { margin-top: auto; }
+.startRail button:hover, .startAppsList button:hover, .startTiles button:hover { background: rgba(125,211,252,.12); }
+.startAppsList { padding: 12px 8px; overflow: auto; }
+.startAppsList strong { display: block; font-size: 12px; font-weight: 700; margin: 0 0 8px 8px; letter-spacing: .06em; color: rgba(255,255,255,.72); }
+.startAppsList button { width: 100%; height: 34px; border: 0; background: transparent; color: white; display: flex; align-items: center; gap: 9px; padding: 0 8px; text-align: left; font-size: 12px; border-radius: 9px; }
+.startTiles { padding: 34px 12px 12px; display: grid; grid-template-columns: repeat(2, minmax(78px, 1fr)); grid-auto-rows: 72px; gap: 8px; align-content: start; }
+.startTiles button { border: 1px solid rgba(125,211,252,.16); border-radius: 12px; background: linear-gradient(135deg, rgba(14,165,233,.22), rgba(15,23,42,.88)); color: white; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 9px; text-align: left; font-size: 11px; }
 
-.closeBtn {
-  width: 44px;
-  height: 32px;
-  border: 0;
-  border-radius: 0;
-  color: white;
-  background: transparent;
-  font-size: 19px;
-  cursor: pointer;
-}
-
-.closeBtn:hover {
-  background: #e81123;
-}
-
-.windowBody {
-  height: calc(100% - 32px);
-  padding: 14px;
-  overflow: auto;
-}
-
-.systemPanel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 8px;
-}
-
-.systemPanel h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.systemPanel p {
-  max-width: 430px;
-  color: rgba(255,255,255,.72);
-  margin: 0;
-  font-size: 13px;
-}
-
-.statusGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(110px, 1fr));
-  gap: 7px;
-  margin-top: 8px;
-  width: min(420px, 100%);
-}
-
-.statusGrid span {
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 2px;
-  padding: 8px;
-  background: rgba(255,255,255,.07);
-  color: rgba(255,255,255,.82);
-  font-size: 11px;
-}
-
-.startMenu {
-  position: absolute;
-  left: 0;
-  bottom: 40px;
-  width: 530px;
-  max-width: calc(100vw - 8px);
-  height: min(420px, calc(100vh - 48px));
-  background: rgba(22, 26, 32, .96);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 -14px 40px rgba(0,0,0,.48);
-  display: grid;
-  grid-template-columns: 44px 190px 1fr;
-  z-index: 5;
-}
-
-.startRail {
-  background: rgba(0,0,0,.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-}
-
-.startRail button {
-  width: 34px;
-  height: 34px;
-  border: 0;
-  background: transparent;
-  color: white;
-  display: grid;
-  place-items: center;
-}
-
-.startRail button:nth-child(2) {
-  margin-top: auto;
-}
-
-.startRail button:hover,
-.startAppsList button:hover,
-.startTiles button:hover {
-  background: rgba(255,255,255,.12);
-}
-
-.startAppsList {
-  padding: 12px 8px;
-  overflow: auto;
-}
-
-.startAppsList strong {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  margin: 0 0 8px 8px;
-}
-
-.startAppsList button {
-  width: 100%;
-  height: 34px;
-  border: 0;
-  background: transparent;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 0 8px;
-  text-align: left;
-  font-size: 12px;
-}
-
-.startTiles {
-  padding: 34px 12px 12px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(78px, 1fr));
-  grid-auto-rows: 72px;
-  gap: 8px;
-  align-content: start;
-}
-
-.startTiles button {
-  border: 0;
-  background: #0f6cbd;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 9px;
-  text-align: left;
-  font-size: 11px;
-}
-
-.actionCenter {
-  position: absolute;
-  right: 0;
-  bottom: 40px;
-  width: 300px;
-  max-width: 92vw;
-  height: min(420px, calc(100vh - 48px));
-  background: rgba(22, 26, 32, .96);
-  border-left: 1px solid rgba(255,255,255,.1);
-  box-shadow: -16px 0 40px rgba(0,0,0,.38);
-  z-index: 5;
-  padding: 12px;
-}
-
-.actionCenter header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-bottom: 12px;
-}
-
-.notificationCard {
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.09);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.notificationCard span {
-  color: rgba(255,255,255,.72);
-}
-
-.quickActions {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
-.quickActions button {
-  border: 0;
-  background: #0f6cbd;
-  color: white;
-  min-height: 44px;
-  font-size: 11px;
-}
+.actionCenter { position: absolute; right: 10px; bottom: 56px; width: 300px; max-width: 92vw; height: min(395px, calc(100vh - 70px)); border-radius: 18px; padding: 12px; }
+.actionCenter header { display: flex; align-items: center; justify-content: space-between; font-size: 13px; margin-bottom: 12px; }
+.notificationCard { background: rgba(255,255,255,.07); border: 1px solid rgba(125,211,252,.12); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.notificationCard span { color: rgba(255,255,255,.72); }
+.quickActions { position: absolute; left: 12px; right: 12px; bottom: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.quickActions button { border: 1px solid rgba(125,211,252,.16); border-radius: 12px; background: rgba(14,165,233,.18); color: white; min-height: 44px; font-size: 11px; }
 
 .taskbar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 40px;
-  background: rgba(20, 20, 20, .96);
-  display: flex;
-  align-items: center;
-  box-shadow: 0 -1px 0 rgba(255,255,255,.08);
-  z-index: 6;
+  position: absolute; left: 10px; right: 10px; bottom: 10px; height: 44px; border-radius: 17px;
+  background: rgba(8, 12, 22, .78); display: flex; align-items: center; box-shadow: 0 18px 50px rgba(0,0,0,.48), inset 0 0 0 1px rgba(125,211,252,.14); z-index: 6; backdrop-filter: blur(22px);
 }
-
-.taskbarLeft {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.startButton,
-.taskIcon,
-.systemTray button {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 0;
-  color: white;
-  background: transparent;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-
-.startButton {
-  font-size: 19px;
-}
-
-.startButton:hover,
-.taskIcon:hover,
-.systemTray button:hover {
-  background: rgba(255,255,255,.12);
-}
-
-.win10Search {
-  height: 40px;
-  width: 180px;
-  background: rgba(255,255,255,.92);
-  color: #111827;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 11px;
-  font-size: 12px;
-}
-
-.systemTray {
-  margin-left: auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding-right: 8px;
-  color: rgba(255,255,255,.86);
-}
-
-.clock {
-  min-width: 58px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 9px;
-  line-height: 1.1;
-}
-
-.clock span {
-  color: rgba(255,255,255,.75);
-}
-
-.portraitBlock {
-  display: none;
-}
+.taskbarLeft { display: flex; align-items: center; height: 100%; padding-left: 5px; }
+.startButton, .taskIcon, .systemTray button { width: 36px; height: 36px; border: 0; border-radius: 12px; color: white; background: transparent; cursor: pointer; display: grid; place-items: center; }
+.startButton { font-size: 19px; }
+.startButton:hover, .taskIcon:hover, .systemTray button:hover { background: rgba(125,211,252,.13); }
+.win10Search { height: 34px; width: 164px; border-radius: 13px; background: rgba(255,255,255,.08); color: rgba(255,255,255,.72); border: 1px solid rgba(125,211,252,.12); display: flex; align-items: center; gap: 8px; padding: 0 11px; font-size: 12px; }
+.systemTray { margin-left: auto; height: 100%; display: flex; align-items: center; gap: 3px; padding-right: 7px; color: rgba(255,255,255,.86); }
+.clock { min-width: 58px; display: flex; flex-direction: column; align-items: flex-end; font-size: 9px; line-height: 1.1; }
+.clock span { color: rgba(255,255,255,.75); }
+.portraitBlock { display: none; }
 
 @media (orientation: portrait) {
-  .desktopContent {
-    display: none;
-  }
-
-  .portraitBlock {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 12px;
-    padding: 28px;
-    background: #080b14;
-    z-index: 4;
-  }
-
-  .portraitBlock h1 {
-    margin: 0;
-    font-size: 28px;
-  }
-
-  .portraitBlock p {
-    margin: 0;
-    color: rgba(255,255,255,.72);
-    max-width: 320px;
-  }
+  .desktopContent { display: none; }
+  .portraitBlock { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 28px; background: #080b14; z-index: 4; }
+  .portraitBlock h1 { margin: 0; font-size: 28px; }
+  .portraitBlock p { margin: 0; color: rgba(255,255,255,.72); max-width: 320px; }
 }
 
 @media (max-width: 760px) and (orientation: landscape) {
-  .iconsGrid {
-    top: 7px;
-    left: 5px;
-    grid-template-columns: 56px;
-    gap: 4px;
-  }
-
-  .desktopIcon {
-    width: 56px;
-    min-height: 48px;
-  }
-
-  .desktopIcon span {
-    font-size: 9px;
-  }
-
-  .window {
-    width: calc(100vw - 122px);
-    height: calc(100vh - 52px);
-    left: calc(50% + 30px);
-  }
-
-  .taskbar {
-    height: 34px;
-  }
-
-  .startButton,
-  .taskIcon,
-  .systemTray button {
-    width: 32px;
-    height: 34px;
-  }
-
-  .win10Search {
-    height: 34px;
-    width: 104px;
-    font-size: 10px;
-    padding: 0 8px;
-  }
-
-  .startMenu {
-    bottom: 34px;
-    height: calc(100vh - 42px);
-    width: min(430px, 92vw);
-    grid-template-columns: 36px 144px 1fr;
-  }
-
-  .startTiles {
-    grid-auto-rows: 54px;
-    padding: 24px 8px 8px;
-    gap: 6px;
-  }
-
-  .actionCenter {
-    bottom: 34px;
-    height: calc(100vh - 42px);
-    width: 260px;
-  }
-
-  .systemTray {
-    gap: 1px;
-    padding-right: 3px;
-  }
-
-  .clock {
-    min-width: 46px;
-    font-size: 8px;
-  }
+  .systemLabel { top: 8px; right: 10px; }
+  .iconsGrid { top: 8px; left: 7px; grid-template-columns: 62px; gap: 6px; }
+  .desktopIcon { width: 62px; min-height: 60px; }
+  .iconPlate { width: 34px; height: 34px; border-radius: 11px; }
+  .desktopIcon span:last-child { font-size: 9px; }
+  .window { width: calc(100vw - 135px); height: calc(100vh - 70px); left: calc(50% + 34px); }
+  .taskbar { height: 38px; left: 8px; right: 8px; bottom: 7px; border-radius: 15px; }
+  .startButton, .taskIcon, .systemTray button { width: 31px; height: 31px; border-radius: 10px; }
+  .win10Search { height: 30px; width: 96px; font-size: 10px; padding: 0 8px; }
+  .startMenu { bottom: 51px; height: calc(100vh - 60px); width: min(430px, 92vw); grid-template-columns: 36px 144px 1fr; left: 8px; }
+  .startTiles { grid-auto-rows: 54px; padding: 24px 8px 8px; gap: 6px; }
+  .actionCenter { bottom: 51px; height: calc(100vh - 60px); width: 250px; right: 8px; }
+  .systemTray { gap: 0; padding-right: 3px; }
+  .clock { min-width: 46px; font-size: 8px; }
 }
