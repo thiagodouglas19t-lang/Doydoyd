@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Sparkles } from 'lucide-react'
+import { Bell, Sparkles } from 'lucide-react'
 import { systemItems } from './data/systemItems.js'
 import { Taskbar } from './components/Taskbar.jsx'
 import { Window } from './components/Window.jsx'
@@ -8,6 +8,7 @@ import './styles.css'
 
 function App() {
   const [activeItem, setActiveItem] = useState(null)
+  const [actionCenterOpen, setActionCenterOpen] = useState(false)
 
   return (
     <main className="desktop">
@@ -32,7 +33,26 @@ function App() {
 
         {activeItem && <Window item={activeItem} onClose={() => setActiveItem(null)} />}
 
-        <Taskbar items={systemItems} onOpen={setActiveItem} />
+        {actionCenterOpen && (
+          <aside className="actionCenter">
+            <header>
+              <strong>Central de ações</strong>
+              <Bell size={15} />
+            </header>
+            <div className="notificationCard">
+              <b>Doydoyd OS</b>
+              <span>Sistema pronto para virar seu PC virtual na nuvem.</span>
+            </div>
+            <div className="quickActions">
+              <button>Modo tablet</button>
+              <button>Tela cheia</button>
+              <button>Modo leve</button>
+              <button>Nuvem</button>
+            </div>
+          </aside>
+        )}
+
+        <Taskbar items={systemItems} onOpen={setActiveItem} onToggleActions={() => setActionCenterOpen(!actionCenterOpen)} />
       </div>
     </main>
   )
