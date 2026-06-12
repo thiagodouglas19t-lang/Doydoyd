@@ -1,25 +1,13 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Bell, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
+import { ActionCenter } from './components/ActionCenter.jsx'
 import { AppButton } from './components/AppButton.jsx'
 import { Taskbar } from './components/Taskbar.jsx'
 import { Window } from './components/Window.jsx'
 import { useDesktop } from './system/useDesktop.js'
 import './styles.css'
 import './styles/wallpaper.css'
-
-function ActionCenter({ desktop }) {
-  return (
-    <aside className="actionCenter">
-      <header><strong>Central de ações</strong><Bell size={15} /></header>
-      <div className="notificationCard">
-        <b>{desktop.system.name}</b>
-        <span>Sistema pronto para virar seu PC virtual na nuvem.</span>
-      </div>
-      <div className="quickActions">{desktop.quickActions.map((action) => <button key={action}>{action}</button>)}</div>
-    </aside>
-  )
-}
 
 function App() {
   const desktop = useDesktop()
