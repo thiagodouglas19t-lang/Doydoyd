@@ -1,5 +1,7 @@
 import { Battery, Bell, ChevronUp, Maximize2, Power, Search, Settings, User, Volume2, Wifi } from 'lucide-react'
 import { useState } from 'react'
+import { getPinnedApps } from '../system/core.js'
+import { AppButton } from './AppButton.jsx'
 import { Clock } from './Clock.jsx'
 
 function enterFullscreen() {
@@ -9,6 +11,8 @@ function enterFullscreen() {
 
 export function Taskbar({ items, onOpen, onToggleActions }) {
   const [startOpen, setStartOpen] = useState(false)
+  const pinnedApps = getPinnedApps()
+  const tileApps = items.slice(0, 4)
 
   function openItem(item) {
     onOpen(item)
@@ -25,28 +29,14 @@ export function Taskbar({ items, onOpen, onToggleActions }) {
             <button aria-label="Configurações"><Settings size={15} /></button>
             <button aria-label="Energia"><Power size={15} /></button>
           </aside>
+
           <div className="startAppsList">
             <strong>Sistema</strong>
-            {items.map((item) => {
-              const Icon = item.icon
-              return (
-                <button key={item.id} onClick={() => openItem(item)}>
-                  <Icon size={16} />
-                  <span>{item.name}</span>
-                </button>
-              )
-            })}
+            {items.map((app) => <AppButton key={app.id} app={app} mode="list" size={16} onOpen={openItem} />)}
           </div>
+
           <div className="startTiles">
-            {items.slice(0, 4).map((item) => {
-              const Icon = item.icon
-              return (
-                <button key={item.id} onClick={() => openItem(item)}>
-                  <Icon size={22} />
-                  <span>{item.name}</span>
-                </button>
-              )
-            })}
+            {tileApps.map((app) => <AppButton key={app.id} app={app} mode="tile" size={22} onOpen={openItem} />)}
           </div>
         </section>
       )}
@@ -55,10 +45,7 @@ export function Taskbar({ items, onOpen, onToggleActions }) {
         <div className="taskbarLeft">
           <button className="startButton" onClick={() => setStartOpen(!startOpen)} aria-label="Abrir menu iniciar">⊞</button>
           <div className="win10Search"><Search size={14} /> Pesquisar</div>
-          {items.slice(0, 3).map((item) => {
-            const Icon = item.icon
-            return <button className="taskIcon" key={item.id} onClick={() => openItem(item)} aria-label={item.name}><Icon size={17} /></button>
-          })}
+          {pinnedApps.map((app) => <AppButton key={app.id} app={app} mode="task" onOpen={openItem} />)}
         </div>
 
         <div className="systemTray">
