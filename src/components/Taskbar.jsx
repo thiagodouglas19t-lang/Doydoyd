@@ -1,4 +1,4 @@
-import { Battery, ChevronUp, Maximize2, Power, Search, Volume2, Wifi } from 'lucide-react'
+import { Battery, Bell, ChevronUp, Maximize2, Power, Search, Settings, User, Volume2, Wifi } from 'lucide-react'
 import { useState } from 'react'
 import { Clock } from './Clock.jsx'
 
@@ -7,7 +7,7 @@ function enterFullscreen() {
   if (root.requestFullscreen) root.requestFullscreen().catch(() => {})
 }
 
-export function Taskbar({ items, onOpen }) {
+export function Taskbar({ items, onOpen, onToggleActions }) {
   const [startOpen, setStartOpen] = useState(false)
 
   function openItem(item) {
@@ -20,10 +20,10 @@ export function Taskbar({ items, onOpen }) {
       {startOpen && (
         <section className="startMenu">
           <aside className="startRail">
-            <button>☰</button>
-            <button>👤</button>
-            <button>⚙</button>
-            <button><Power size={15} /></button>
+            <button aria-label="Menu">☰</button>
+            <button aria-label="Usuário"><User size={15} /></button>
+            <button aria-label="Configurações"><Settings size={15} /></button>
+            <button aria-label="Energia"><Power size={15} /></button>
           </aside>
           <div className="startAppsList">
             <strong>Sistema</strong>
@@ -68,6 +68,7 @@ export function Taskbar({ items, onOpen }) {
           <Volume2 size={13} />
           <Battery size={14} />
           <Clock />
+          <button onClick={onToggleActions} aria-label="Central de ações"><Bell size={13} /></button>
         </div>
       </footer>
     </>
