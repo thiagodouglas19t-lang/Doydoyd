@@ -269,6 +269,60 @@ button {
   font-size: 11px;
 }
 
+.actionCenter {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  width: 300px;
+  max-width: 92vw;
+  height: min(420px, calc(100vh - 48px));
+  background: rgba(22, 26, 32, .96);
+  border-left: 1px solid rgba(255,255,255,.1);
+  box-shadow: -16px 0 40px rgba(0,0,0,.38);
+  z-index: 5;
+  padding: 12px;
+}
+
+.actionCenter header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.notificationCard {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.09);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.notificationCard span {
+  color: rgba(255,255,255,.72);
+}
+
+.quickActions {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.quickActions button {
+  border: 0;
+  background: #0f6cbd;
+  color: white;
+  min-height: 44px;
+  font-size: 11px;
+}
+
 .taskbar {
   position: absolute;
   left: 0;
@@ -400,9 +454,9 @@ button {
   }
 
   .window {
-    width: calc(100vw - 135px);
-    height: calc(100vh - 58px);
-    left: calc(50% + 34px);
+    width: calc(100vw - 122px);
+    height: calc(100vh - 52px);
+    left: calc(50% + 30px);
   }
 
   .taskbar {
@@ -412,35 +466,43 @@ button {
   .startButton,
   .taskIcon,
   .systemTray button {
-    width: 34px;
+    width: 32px;
     height: 34px;
   }
 
   .win10Search {
     height: 34px;
-    width: 116px;
-    font-size: 11px;
+    width: 104px;
+    font-size: 10px;
+    padding: 0 8px;
   }
 
   .startMenu {
     bottom: 34px;
     height: calc(100vh - 42px);
-    width: 430px;
-    grid-template-columns: 38px 150px 1fr;
+    width: min(430px, 92vw);
+    grid-template-columns: 36px 144px 1fr;
   }
 
   .startTiles {
-    grid-auto-rows: 58px;
-    padding-top: 26px;
+    grid-auto-rows: 54px;
+    padding: 24px 8px 8px;
+    gap: 6px;
+  }
+
+  .actionCenter {
+    bottom: 34px;
+    height: calc(100vh - 42px);
+    width: 260px;
   }
 
   .systemTray {
-    gap: 3px;
-    right: 4px;
+    gap: 1px;
+    padding-right: 3px;
   }
 
   .clock {
-    min-width: 50px;
+    min-width: 46px;
     font-size: 8px;
   }
 }
