@@ -41,9 +41,19 @@ function Window({ app, maximized, onClose, onMaximize }) {
   )
 }
 
-function AppButton({ app, className, onClick }) {
+function DesktopIcon({ app, onOpen }) {
   const Icon = app.icon
-  return <button className={className} onClick={onClick}><Icon size={className === 'desktopIcon' ? 22 : 17} />{className !== 'taskIcon' && <span>{app.name}</span>}</button>
+  return <button className="desktopIcon" onClick={() => onOpen(app)}><span className="iconPlate"><Icon size={22} /></span><span>{app.name}</span></button>
+}
+
+function MenuButton({ app, onOpen }) {
+  const Icon = app.icon
+  return <button onClick={() => onOpen(app)}><Icon size={16} />{app.name}</button>
+}
+
+function TaskIcon({ app, onOpen }) {
+  const Icon = app.icon
+  return <button className="taskIcon" onClick={() => onOpen(app)}><Icon size={17} /></button>
 }
 
 function App() {
@@ -65,16 +75,14 @@ function App() {
     <main className="desktop">
       <div className="desktopContent">
         <div className="systemLabel"><span>DOYDOYD PC</span><small>simulador leve</small></div>
-        <div className="iconsGrid">
-          {apps.map((app) => <button key={app.id} className="desktopIcon" onClick={() => openApp(app)}><span className="iconPlate"><app.icon size={22} /></span><span>{app.name}</span></button>)}
-        </div>
+        <div className="iconsGrid">{apps.map((app) => <DesktopIcon key={app.id} app={app} onOpen={openApp} />)}</div>
 
         {activeApp && <Window app={activeApp} maximized={maximized} onMaximize={() => setMaximized(!maximized)} onClose={() => setActiveApp(null)} />}
 
         {startOpen && (
           <section className="startMenu simpleMenu">
             <strong>Apps do sistema</strong>
-            {apps.map((app) => <button key={app.id} onClick={() => openApp(app)}><app.icon size={16} />{app.name}</button>)}
+            {apps.map((app) => <MenuButton key={app.id} app={app} onOpen={openApp} />)}
           </section>
         )}
 
@@ -89,7 +97,7 @@ function App() {
         <footer className="taskbar">
           <div className="taskbarLeft">
             <button className="startButton" onClick={() => setStartOpen(!startOpen)}>⊞</button>
-            {apps.slice(0, 4).map((app) => { const Icon = app.icon; return <button key={app.id} className="taskIcon" onClick={() => openApp(app)}><Icon size={17} /></button> })}
+            {apps.slice(0, 4).map((app) => <TaskIcon key={app.id} app={app} onOpen={openApp} />)}
           </div>
           <div className="systemTray">
             <button onClick={fullscreen}><Monitor size={13} /></button>
