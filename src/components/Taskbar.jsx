@@ -1,21 +1,12 @@
 import { Battery, Bell, ChevronUp, Maximize2, Power, Search, Settings, User, Volume2, Wifi } from 'lucide-react'
 import { useState } from 'react'
 import { getPinnedApps } from '../system/core.js'
+import { AppButton } from './AppButton.jsx'
 import { Clock } from './Clock.jsx'
 
 function enterFullscreen() {
   const root = document.documentElement
   if (root.requestFullscreen) root.requestFullscreen().catch(() => {})
-}
-
-function AppButton({ item, size = 17, className = '', onOpen }) {
-  const Icon = item.icon
-  return (
-    <button className={className} onClick={() => onOpen(item)} aria-label={item.name}>
-      <Icon size={size} />
-      {className !== 'taskIcon' && <span>{item.name}</span>}
-    </button>
-  )
 }
 
 export function Taskbar({ items, onOpen, onToggleActions }) {
@@ -41,11 +32,11 @@ export function Taskbar({ items, onOpen, onToggleActions }) {
 
           <div className="startAppsList">
             <strong>Sistema</strong>
-            {items.map((item) => <AppButton key={item.id} item={item} size={16} onOpen={openItem} />)}
+            {items.map((app) => <AppButton key={app.id} app={app} mode="list" size={16} onOpen={openItem} />)}
           </div>
 
           <div className="startTiles">
-            {tileApps.map((item) => <AppButton key={item.id} item={item} size={22} onOpen={openItem} />)}
+            {tileApps.map((app) => <AppButton key={app.id} app={app} mode="tile" size={22} onOpen={openItem} />)}
           </div>
         </section>
       )}
@@ -54,7 +45,7 @@ export function Taskbar({ items, onOpen, onToggleActions }) {
         <div className="taskbarLeft">
           <button className="startButton" onClick={() => setStartOpen(!startOpen)} aria-label="Abrir menu iniciar">⊞</button>
           <div className="win10Search"><Search size={14} /> Pesquisar</div>
-          {pinnedApps.map((item) => <AppButton key={item.id} item={item} className="taskIcon" onOpen={openItem} />)}
+          {pinnedApps.map((app) => <AppButton key={app.id} app={app} mode="task" onOpen={openItem} />)}
         </div>
 
         <div className="systemTray">
