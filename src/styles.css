@@ -6,29 +6,9 @@ html, body, #root {
 }
 button { font: inherit; }
 
-.desktop {
-  width: 100vw; height: 100vh; position: relative; overflow: hidden;
-  background:
-    radial-gradient(circle at 72% 42%, rgba(185, 198, 255, .18), transparent 18%),
-    radial-gradient(circle at 36% 45%, rgba(59, 130, 246, .18), transparent 26%),
-    linear-gradient(110deg, #05070d 0%, #0a0d18 40%, #020308 100%);
-}
-
-.nasaDesktop::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent 0 45%, rgba(148, 163, 184, .12) 45.1% 45.3%, transparent 45.4%),
-    linear-gradient(0deg, transparent 0 64%, rgba(148, 163, 184, .10) 64.1% 64.3%, transparent 64.4%),
-    radial-gradient(circle at 68% 36%, rgba(255,255,255,.14), transparent 1.5%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px);
-  mix-blend-mode: screen;
-}
-
-.nasaDesktop::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(90deg, rgba(0,0,0,.72) 0 37%, transparent 48%), linear-gradient(0deg, rgba(0,0,0,.2), transparent 45%);
-}
-
+.desktop { width: 100vw; height: 100vh; position: relative; overflow: hidden; background: radial-gradient(circle at 72% 42%, rgba(185, 198, 255, .18), transparent 18%), radial-gradient(circle at 36% 45%, rgba(59, 130, 246, .18), transparent 26%), linear-gradient(110deg, #05070d 0%, #0a0d18 40%, #020308 100%); }
+.nasaDesktop::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 0 45%, rgba(148, 163, 184, .12) 45.1% 45.3%, transparent 45.4%), linear-gradient(0deg, transparent 0 64%, rgba(148, 163, 184, .10) 64.1% 64.3%, transparent 64.4%), radial-gradient(circle at 68% 36%, rgba(255,255,255,.14), transparent 1.5%), repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px); mix-blend-mode: screen; }
+.nasaDesktop::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,.72) 0 37%, transparent 48%), linear-gradient(0deg, rgba(0,0,0,.2), transparent 45%); }
 .desktopContent { display: block; height: 100%; position: relative; z-index: 1; }
 .systemLabel { position: absolute; top: 12px; right: 14px; text-align: right; letter-spacing: .12em; text-shadow: 0 0 14px rgba(125, 211, 252, .32); opacity: .82; }
 .systemLabel span { display: block; font-size: 11px; font-weight: 800; }
@@ -39,7 +19,7 @@ button { font: inherit; }
 .iconPlate { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: rgba(15, 23, 42, .72); border: 1px solid rgba(148, 163, 184, .22); box-shadow: inset 0 0 18px rgba(125, 211, 252, .08), 0 8px 18px rgba(0,0,0,.35); }
 .desktopIcon span:last-child { font-size: 10px; line-height: 1.05; max-width: 68px; overflow-wrap: break-word; }
 .desktopIcon:hover { border-color: rgba(125,211,252,.34); background: rgba(125,211,252,.10); }
-.window { position: absolute; width: min(660px, calc(100vw - 170px)); height: min(370px, calc(100vh - 78px)); left: 50%; top: 48%; transform: translate(-50%, -50%); border: 1px solid rgba(125,211,252,.22); border-radius: 14px; background: rgba(5, 10, 20, .86); box-shadow: 0 22px 70px rgba(0,0,0,.62), 0 0 34px rgba(14,165,233,.12); overflow: hidden; backdrop-filter: blur(18px); }
+.window { position: absolute; width: min(720px, calc(100vw - 170px)); height: min(420px, calc(100vh - 78px)); left: 50%; top: 48%; transform: translate(-50%, -50%); border: 1px solid rgba(125,211,252,.22); border-radius: 14px; background: rgba(5, 10, 20, .86); box-shadow: 0 22px 70px rgba(0,0,0,.62), 0 0 34px rgba(14,165,233,.12); overflow: hidden; backdrop-filter: blur(18px); }
 .windowHeader { height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0 0 0 11px; background: rgba(15,23,42,.86); border-bottom: 1px solid rgba(125,211,252,.14); }
 .windowTitle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 .closeBtn { width: 44px; height: 34px; border: 0; border-radius: 0; color: white; background: transparent; font-size: 19px; cursor: pointer; }
@@ -50,6 +30,18 @@ button { font: inherit; }
 .systemPanel p { max-width: 430px; color: rgba(255,255,255,.72); margin: 0; font-size: 13px; }
 .statusGrid { display: grid; grid-template-columns: repeat(2, minmax(110px, 1fr)); gap: 7px; margin-top: 8px; width: min(420px, 100%); }
 .statusGrid span { border: 1px solid rgba(125,211,252,.13); border-radius: 8px; padding: 8px; background: rgba(125,211,252,.06); color: rgba(255,255,255,.82); font-size: 11px; }
+.browserApp { height: 100%; display: flex; flex-direction: column; gap: 12px; }
+.browserHero { border: 1px solid rgba(125,211,252,.14); background: linear-gradient(135deg, rgba(14,165,233,.18), rgba(15,23,42,.58)); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.browserHero strong { font-size: 22px; }
+.browserHero span, .browserHint { color: rgba(255,255,255,.72); font-size: 12px; margin: 0; }
+.browserSearch { height: 46px; border: 1px solid rgba(125,211,252,.18); border-radius: 14px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 13px; background: rgba(255,255,255,.08); }
+.browserSearch input { flex: 1; min-width: 0; border: 0; outline: 0; color: white; background: transparent; font-size: 14px; }
+.browserSearch input::placeholder { color: rgba(255,255,255,.46); }
+.browserSearch button, .bookmarkGrid button { border: 1px solid rgba(125,211,252,.16); border-radius: 12px; background: rgba(14,165,233,.18); color: white; cursor: pointer; }
+.browserSearch button { height: 34px; padding: 0 14px; font-weight: 700; }
+.bookmarkGrid { display: grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: 9px; }
+.bookmarkGrid button { min-height: 54px; display: grid; grid-template-columns: 20px 1fr 16px; align-items: center; gap: 8px; padding: 0 12px; text-align: left; }
+.bookmarkGrid button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .startMenu, .actionCenter { background: rgba(6, 10, 20, .94); border: 1px solid rgba(125,211,252,.18); box-shadow: 0 -14px 45px rgba(0,0,0,.55), 0 0 28px rgba(14,165,233,.08); backdrop-filter: blur(18px); z-index: 5; }
 .startMenu { position: absolute; left: 10px; bottom: 56px; width: 510px; max-width: calc(100vw - 20px); height: min(395px, calc(100vh - 70px)); display: grid; grid-template-columns: 44px 180px 1fr; border-radius: 18px; overflow: hidden; }
 .startRail { background: rgba(255,255,255,.035); display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0; }
@@ -98,6 +90,10 @@ button { font: inherit; }
   .taskbar::after { bottom: -6px; width: 94px; height: 2px; }
   .startButton, .taskIcon, .systemTray button { width: 31px; height: 31px; border-radius: 10px; }
   .win10Search { height: 30px; width: 96px; font-size: 10px; padding: 0 8px; }
+  .bookmarkGrid { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .browserHero { padding: 10px; }
+  .browserHero strong { font-size: 18px; }
+  .browserSearch { height: 40px; }
   .startMenu { bottom: 51px; height: calc(100vh - 60px); width: min(430px, 92vw); grid-template-columns: 36px 144px 1fr; left: 8px; }
   .startTiles { grid-auto-rows: 54px; padding: 24px 8px 8px; gap: 6px; }
   .actionCenter { bottom: 51px; height: calc(100vh - 60px); width: 250px; right: 8px; }
