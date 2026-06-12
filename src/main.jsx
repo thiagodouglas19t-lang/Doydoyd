@@ -5,6 +5,7 @@ import { systemItems } from './data/systemItems.js'
 import { Taskbar } from './components/Taskbar.jsx'
 import { Window } from './components/Window.jsx'
 import './styles.css'
+import './styles/wallpaper.css'
 
 function App() {
   const [activeItem, setActiveItem] = useState(null)
