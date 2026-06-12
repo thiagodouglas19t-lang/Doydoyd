@@ -1,16 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Globe, Folder, NotebookPen, Settings, Trash2, PlaySquare, MessageCircle, Code2, Sparkles, Film, Plus, Play, Scissors, Download } from 'lucide-react'
+import { Monitor, Settings, Trash2, Sparkles, Cloud, Shield, LayoutGrid } from 'lucide-react'
 import './styles.css'
 
-const apps = [
-  { id: 'browser', name: 'Navegador', icon: Globe, url: 'https://www.google.com' },
-  { id: 'studio', name: 'Editor', icon: Film },
-  { id: 'youtube', name: 'YouTube', icon: PlaySquare, url: 'https://www.youtube.com' },
-  { id: 'discord', name: 'Discord', icon: MessageCircle, url: 'https://discord.com/app' },
-  { id: 'github', name: 'GitHub', icon: Code2, url: 'https://github.com' },
-  { id: 'notes', name: 'Notas', icon: NotebookPen },
-  { id: 'files', name: 'Arquivos', icon: Folder },
+const systemItems = [
+  { id: 'home', name: 'Meu PC', icon: Monitor },
+  { id: 'cloud', name: 'Nuvem', icon: Cloud },
   { id: 'cleaner', name: 'Limpeza', icon: Trash2 },
   { id: 'settings', name: 'Configurações', icon: Settings }
 ]
@@ -25,89 +20,88 @@ function Clock() {
   )
 }
 
-function VideoEditor() {
-  const [clips, setClips] = useState([
-    { id: 1, name: 'Cena 1', time: '0:00 - 0:05', type: 'Vídeo' },
-    { id: 2, name: 'Cena 2', time: '0:05 - 0:12', type: 'Imagem' }
-  ])
+function SystemPanel({ item }) {
+  if (item.id === 'home') {
+    return (
+      <div className="systemPanel">
+        <Monitor size={46} />
+        <h2>Seu PC virtual está começando</h2>
+        <p>Agora o foco é deixar a base pronta: desktop, janelas, barra de tarefas, modo paisagem e estrutura para apps futuros.</p>
+        <div className="statusGrid">
+          <span>Desktop: ativo</span>
+          <span>Modo paisagem: ativo</span>
+          <span>Apps internos: depois</span>
+          <span>Nuvem: próxima etapa</span>
+        </div>
+      </div>
+    )
+  }
 
-  function addClip() {
-    const next = clips.length + 1
-    setClips([...clips, { id: Date.now(), name: `Cena ${next}`, time: 'novo corte', type: 'Mídia' }])
+  if (item.id === 'cloud') {
+    return (
+      <div className="systemPanel">
+        <Cloud size={46} />
+        <h2>Base da nuvem</h2>
+        <p>Essa área vai guardar login, atalhos, configurações, arquivos leves e preferências usando Supabase.</p>
+        <div className="statusGrid">
+          <span>Login</span>
+          <span>Configurações</span>
+          <span>Atalhos</span>
+          <span>Arquivos leves</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (item.id === 'cleaner') {
+    return (
+      <div className="systemPanel">
+        <Trash2 size={46} />
+        <h2>Limpeza semanal</h2>
+        <p>Depois vamos criar uma rotina para limpar coisas antigas da nuvem do Doydoyd OS, sem mexer diretamente no Android.</p>
+        <div className="statusGrid">
+          <span>Links velhos</span>
+          <span>Notas antigas</span>
+          <span>Projetos parados</span>
+          <span>Arquivos grandes</span>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="editorApp">
-      <aside className="editorSidebar">
-        <h2>Doy Studio</h2>
-        <button onClick={addClip}><Plus size={16} /> Adicionar cena</button>
-        <button><Scissors size={16} /> Cortar</button>
-        <button><Play size={16} /> Prévia</button>
-        <button><Download size={16} /> Exportar depois</button>
-      </aside>
-
-      <section className="previewArea">
-        <div className="previewScreen">
-          <Film size={44} />
-          <strong>Prévia do vídeo</strong>
-          <span>Editor leve para organizar cenas, cortes, roteiro e assets.</span>
-        </div>
-      </section>
-
-      <section className="timeline">
-        {clips.map((clip) => (
-          <div className="clip" key={clip.id}>
-            <strong>{clip.name}</strong>
-            <span>{clip.type}</span>
-            <small>{clip.time}</small>
-          </div>
-        ))}
-      </section>
+    <div className="systemPanel">
+      <Shield size={46} />
+      <h2>Configurações do sistema</h2>
+      <p>Aqui vão ficar tema, wallpaper, modo leve para tablet fraco, atalhos e preferências do PC virtual.</p>
+      <div className="statusGrid">
+        <span>Tema escuro</span>
+        <span>Modo leve</span>
+        <span>Wallpaper</span>
+        <span>Layout</span>
+      </div>
     </div>
   )
 }
 
-function Window({ app, onClose }) {
-  const Icon = app.icon
+function Window({ item, onClose }) {
+  const Icon = item.icon
 
   return (
     <section className="window">
       <header className="windowHeader">
-        <div className="windowTitle"><Icon size={16} /> {app.name}</div>
+        <div className="windowTitle"><Icon size={16} /> {item.name}</div>
         <button onClick={onClose} className="closeBtn">×</button>
       </header>
-
       <div className="windowBody">
-        {app.id === 'studio' ? (
-          <VideoEditor />
-        ) : app.url ? (
-          <div className="launcherCard">
-            <Icon size={48} />
-            <h2>{app.name}</h2>
-            <p>Este atalho abre fora do Doydoyd OS para ficar mais leve no tablet.</p>
-            <a href={app.url} target="_blank" rel="noreferrer">Abrir {app.name}</a>
-          </div>
-        ) : app.id === 'notes' ? (
-          <textarea className="notes" placeholder="Escreva ideias rápidas aqui. Depois vamos salvar isso no Supabase." />
-        ) : app.id === 'cleaner' ? (
-          <div className="panelText">
-            <h2>Limpeza semanal</h2>
-            <p>Área para apagar links velhos, notas inúteis, arquivos temporários e coisas que deixam sua nuvem bagunçada.</p>
-            <button>Verificar depois</button>
-          </div>
-        ) : (
-          <div className="panelText">
-            <h2>{app.name}</h2>
-            <p>Esse app vai ser conectado à nuvem nas próximas versões.</p>
-          </div>
-        )}
+        <SystemPanel item={item} />
       </div>
     </section>
   )
 }
 
 function App() {
-  const [activeApp, setActiveApp] = useState(null)
+  const [activeItem, setActiveItem] = useState(systemItems[0])
 
   return (
     <main className="desktop">
@@ -120,30 +114,30 @@ function App() {
       <div className="desktopContent">
         <div className="brand">
           <span>Doydoyd OS</span>
-          <small>Cloud PC leve</small>
+          <small>Cloud PC base</small>
         </div>
 
         <div className="iconsGrid">
-          {apps.map((app) => {
-            const Icon = app.icon
+          {systemItems.map((item) => {
+            const Icon = item.icon
             return (
-              <button key={app.id} className="desktopIcon" onClick={() => setActiveApp(app)}>
+              <button key={item.id} className="desktopIcon" onClick={() => setActiveItem(item)}>
                 <Icon size={30} />
-                <span>{app.name}</span>
+                <span>{item.name}</span>
               </button>
             )
           })}
         </div>
 
-        {activeApp && <Window app={activeApp} onClose={() => setActiveApp(null)} />}
+        {activeItem && <Window item={activeItem} onClose={() => setActiveItem(null)} />}
 
         <footer className="taskbar">
-          <button className="startButton">⊞</button>
+          <button className="startButton"><LayoutGrid size={20} /></button>
           <div className="taskSearch">Pesquisar no Doydoyd OS</div>
           <div className="taskApps">
-            {apps.slice(0, 5).map((app) => {
-              const Icon = app.icon
-              return <button key={app.id} onClick={() => setActiveApp(app)}><Icon size={19} /></button>
+            {systemItems.map((item) => {
+              const Icon = item.icon
+              return <button key={item.id} onClick={() => setActiveItem(item)}><Icon size={19} /></button>
             })}
           </div>
           <Clock />
